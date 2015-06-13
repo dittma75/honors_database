@@ -1,0 +1,2 @@
+module HonorsApplicationHelper
+end

@@ -1,0 +1,2 @@
+module MinorHelper
+end

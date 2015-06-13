@@ -1,0 +1,86 @@
+# encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended to check this file into your version control system.
+
+ActiveRecord::Schema.define(:version => 20150606220816) do
+
+  create_table "concentrations", :force => true do |t|
+    t.string   "concentration", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "courses", :force => true do |t|
+    t.string   "crn",        :limit => 5, :null => false
+    t.integer  "course_id",               :null => false
+    t.integer  "section_id",              :null => false
+    t.boolean  "is_honors",               :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  create_table "honors_applications", :force => true do |t|
+    t.integer  "sat",                                          :null => false
+    t.integer  "essay_one",                                    :null => false
+    t.integer  "essay_two",                                    :null => false
+    t.integer  "recommendation",                               :null => false
+    t.decimal  "hs_gpa",         :precision => 3, :scale => 2, :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+  end
+
+  create_table "majors", :force => true do |t|
+    t.string   "major",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "minors", :force => true do |t|
+    t.string   "minor",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "participations", :force => true do |t|
+    t.decimal  "service",    :precision => 10, :scale => 2, :null => false
+    t.decimal  "activity",   :precision => 10, :scale => 2, :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  create_table "semesters", :force => true do |t|
+    t.integer  "year"
+    t.string   "session"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "students", :force => true do |t|
+    t.string   "banner_id",         :limit => 9, :null => false
+    t.string   "fname",                          :null => false
+    t.string   "lname",                          :null => false
+    t.string   "email",                          :null => false
+    t.boolean  "is_rowan",                       :null => false
+    t.boolean  "is_honors",                      :null => false
+    t.string   "reason_not_honors",              :null => false
+    t.string   "street",                         :null => false
+    t.string   "city",                           :null => false
+    t.string   "state",             :limit => 2, :null => false
+    t.string   "enroll_session",                 :null => false
+    t.integer  "enroll_year",                    :null => false
+    t.string   "grad_session"
+    t.integer  "grad_year"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+end

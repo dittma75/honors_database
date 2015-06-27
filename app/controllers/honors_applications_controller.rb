@@ -1,0 +1,2 @@
+class HonorsApplicationsController < ApplicationController
+end

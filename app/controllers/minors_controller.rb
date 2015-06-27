@@ -1,0 +1,2 @@
+class MinorsController < ApplicationController
+end

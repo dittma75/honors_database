@@ -1,2 +1,0 @@
-class MajorController < ApplicationController
-end

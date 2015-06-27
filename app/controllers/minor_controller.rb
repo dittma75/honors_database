@@ -1,2 +1,0 @@
-class MinorController < ApplicationController
-end

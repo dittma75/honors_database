@@ -1,6 +1,9 @@
-<h1><%= [@student.lname, @student.fname].join(', ') %></h1>
-
-<p>Created: <i><%= time_ago_in_words(@student.created_at) %> ago</i></p>
-
+<h1>Information for this <%= @student.class.model_name.human %></h1>
+<% @student.attributes.each do |attribute| %>
+  <% attr_name = attribute.first.to_s.split('_').map(&:capitalize).join(' ') %>
+  <% unless (attribute.first.to_s.eql?("id")) %>
+    <div><%= "#{attr_name}:  #{attribute.last}"%></div>
+  <% end %>
+<% end %>
 <%= link_to 'Edit', action: 'edit', id: @student.id %> |
 <%= link_to 'Back', action: nil %>

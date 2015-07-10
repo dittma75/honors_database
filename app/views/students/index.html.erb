@@ -1,17 +1,17 @@
-<h1>Listing Students</h1>
+<h1>Listing <%= @students.first.class.model_name.human.pluralize %></h1>
 
 <table>
 
 <% @students.each do |student| %>
   <tr>
-    <td><%= link_to [student.lname, student.fname].join(', '), action: 'show', id: student.id %></td>
+    <td><%= link_to [student.last_name, student.first_name].join(', '), action: 'show', id: student.id %></td>
     <td><%= link_to 'Edit', action: 'edit', id: student.id %></td>
-    <td><%= link_to 'Destroy', {action: 'destroy', id: student.id}, confirm: 'Are you sure?', method: :post %></td>
+    <td><%= link_to 'Destroy', {action: 'destroy', id: student.id}, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Student', action: 'new' %>
+<%= link_to "New #{@students.first.class.model_name.human}", action: 'new' %>
 

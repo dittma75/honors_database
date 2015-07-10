@@ -13,8 +13,6 @@ class StudentsController < ApplicationController
 	
 	def create
 		@student = Student.new(params[:student])
-		@student.is_honors = true
-		@student.is_rowan = true
 		if (@student.save)
 			redirect_to @student
 		else
@@ -36,5 +34,7 @@ class StudentsController < ApplicationController
 	def destroy
 		@student = Student.find(params[:id])
 		@student.destroy
+		
+		redirect_to action: 'index'
 	end
 end

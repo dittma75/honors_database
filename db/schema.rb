@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(:version => 20150606220816) do
   end
 
   create_table "courses", :force => true do |t|
-    t.string   "crn",        :limit => 5, :null => false
+    t.string   "CRN",        :limit => 5, :null => false
     t.integer  "course_id",               :null => false
     t.integer  "section_id",              :null => false
     t.boolean  "is_honors",               :null => false
@@ -29,13 +29,16 @@ ActiveRecord::Schema.define(:version => 20150606220816) do
   end
 
   create_table "honors_applications", :force => true do |t|
-    t.integer  "sat",                                          :null => false
-    t.integer  "essay_one",                                    :null => false
-    t.integer  "essay_two",                                    :null => false
-    t.integer  "recommendation",                               :null => false
-    t.decimal  "hs_gpa",         :precision => 3, :scale => 2, :null => false
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.integer  "combined_SAT",                                       :null => false
+    t.integer  "math_SAT",                                           :null => false
+    t.integer  "writing_SAT",                                        :null => false
+    t.integer  "critical_reading_SAT",                               :null => false
+    t.integer  "essay_one",                                          :null => false
+    t.integer  "essay_two",                                          :null => false
+    t.integer  "recommendation",                                     :null => false
+    t.decimal  "high_school_GPA",      :precision => 3, :scale => 2, :null => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
   end
 
   create_table "majors", :force => true do |t|
@@ -65,22 +68,22 @@ ActiveRecord::Schema.define(:version => 20150606220816) do
   end
 
   create_table "students", :force => true do |t|
-    t.string   "banner_id",         :limit => 9, :null => false
-    t.string   "fname",                          :null => false
-    t.string   "lname",                          :null => false
-    t.string   "email",                          :null => false
-    t.boolean  "is_rowan",                       :null => false
-    t.boolean  "is_honors",                      :null => false
-    t.string   "reason_not_honors",              :null => false
-    t.string   "street",                         :null => false
-    t.string   "city",                           :null => false
-    t.string   "state",             :limit => 2, :null => false
-    t.string   "enroll_session",                 :null => false
-    t.integer  "enroll_year",                    :null => false
-    t.string   "grad_session"
-    t.integer  "grad_year"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.string   "banner_ID",          :limit => 9, :null => false
+    t.string   "first_name",                      :null => false
+    t.string   "last_name",                       :null => false
+    t.string   "email",                           :null => false
+    t.boolean  "is_rowan",                        :null => false
+    t.boolean  "is_honors",                       :null => false
+    t.string   "reason_not_honors",               :null => false
+    t.string   "street",                          :null => false
+    t.string   "city",                            :null => false
+    t.string   "state",              :limit => 2, :null => false
+    t.string   "enroll_session",                  :null => false
+    t.integer  "enroll_year",                     :null => false
+    t.string   "graduation_session"
+    t.integer  "graduation_year"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
 end

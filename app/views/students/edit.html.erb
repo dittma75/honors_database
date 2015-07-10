@@ -1,16 +1,2 @@
-<h1>edit student <%= @student.title %></h1>
-
-<% form_for(:student, @student, :url => {:action => 'update', :id => @student.id}) do |f| %>
-  <p>
-    Title: <%= f.text_field 'title' %>
-  </p>
-  <p>
-    Power: <%= f.text_field 'title' %>
-  </p>
-  <p>
-    Body: <%= f.text_area 'body' %>
-  </p>
-  <p>
-    <%= f.submit "Save" %>
-  </p>
-<% end %>
+<h1>Edit <%= @student.class.model_name.human %></h1>
+<%= render 'form' %>

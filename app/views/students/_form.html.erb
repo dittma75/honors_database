@@ -1,48 +1,20 @@
-<%#= error_messages_for(@student) %>
 <%= form_for(@student) do |f| %>
-  <div class="field">
-    <%= f.label :banner_id, 'Banner ID'%><%= f.text_field :banner_id %><br/>
-  </div>
-  <div class="field">
-    <%= f.label :fname, 'First Name'%><%= f.text_field :fname %><br/>
-  </div>
-  <div class="field">
-    <%= f.label :lname, 'Last Name' %><%= f.text_field :lname %><br/>
-  </div>
-  <div class="field">
-    <%#= f.checkbox :is_rowan, 'Rowan Student' %><br/>
-  </div>
-  <div class="field">
-    <%= f.label :email, 'E-mail' %><%= f.text_field :email %><br/>
-  </div>
-  <div class="field">
-    <%= f.label :street %><%= f.text_field :street %><br/>
-  </div>
-  <div class="field">
-    <%= f.label :city %><%= f.text_field :city %><br/>
-  </div>
-  <div class="field">
-    <%= f.label :state %><%= f.text_field :state %><br/>
-  </div>
-  <div class="field">
-    <%= f.label :enroll_session %><%= f.text_field :enroll_session %><br/>
-  </div>
-  <div class="field">
-    <%= f.label :enroll_year %><%= f.text_field :enroll_year %><br/>
-  </div>
-  <div class="field">
-    <%= f.label :grad_session %><%= f.text_field :grad_session %><br/>
-  </div>
-  <div class="field">
-    <%= f.label :grad_year %><%= f.text_field :grad_year %><br/>
-  </div>
-  <div class="field">
-    <%#= f.checkbox :is_honors, 'Honors Student' %><br/>
-  </div>
-  <div class="field">  
-    <%= f.label :reason_not_honors, 'Reason for leaving Honors' %>
-    <%= f.text_field :reason_not_honors %><br/>
-  </div>
+  <% @student.attributes.each do |attribute| %>
+    <% attr_name = attribute.first.to_s.split('_').map(&:capitalize).join(' ') %>
+    <% unless (attribute.first.eql?('id') or
+               attribute.first.eql?('created_at') or
+               attribute.first.eql?('updated_at')) %>
+      <div class="field">
+        <% if (attribute.first.start_with?('is_')) %>
+          <%= f.check_box attribute.first.to_sym%><%= attr_name %><br/>
+        <% else %>
+          <%= f.label attribute.first.to_sym, attr_name %>
+          <%= f.text_field attribute.first.to_sym, {value: attribute.last}%>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
   <div class="actions">
     <%= f.submit :class => 'submit'%>
   </div>

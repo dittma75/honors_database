@@ -1,0 +1,21 @@
+<%= form_for(@object) do |f| %>
+  <% @object.attributes.each do |attribute| %>
+    <% attr_name = attribute.first.to_s.split('_').map(&:capitalize).join(' ') %>
+    <% unless (attribute.first.eql?('id') or
+               attribute.first.eql?('created_at') or
+               attribute.first.eql?('updated_at')) %>
+      <div class="field">
+        <% if (attribute.first.start_with?('is_')) %>
+          <%= f.check_box attribute.first.to_sym%><%= attr_name %><br/>
+        <% else %>
+          <%= f.label attribute.first.to_sym, attr_name %>
+          <%= f.text_field attribute.first.to_sym, {value: attribute.last}%>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit :class => 'submit'%>
+  </div>
+<% end %>

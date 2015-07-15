@@ -1,0 +1,9 @@
+<h1>Information for this <%= @object.class.model_name.human %></h1>
+<% @object.attributes.each do |attribute| %>
+  <% attr_name = attribute.first.to_s.split('_').map(&:capitalize).join(' ') %>
+  <% unless (attribute.first.to_s.eql?("id")) %>
+    <div><%= "#{attr_name}:  #{attribute.last}"%></div>
+  <% end %>
+<% end %>
+<%= link_to 'Edit', action: 'edit', id: @object.id %> |
+<%= link_to 'Back', action: nil %>

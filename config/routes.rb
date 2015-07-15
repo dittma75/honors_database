@@ -1,5 +1,13 @@
 HonorsDatabase::Application.routes.draw do
 	resources :students
+	resources :concentrations
+	resources :honors_applications
+	resources :majors
+	resources :minors
+	resources :participations
+	resources :semesters
+	resources :students
+	
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

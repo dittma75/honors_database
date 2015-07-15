@@ -1,40 +1,29 @@
-class StudentsController < ApplicationController
+class StudentsController < SuperController
 	def index
-		@students = Student.all
+		super(Student)
 	end
 	
 	def show
-		@student = Student.find(params[:id])
+		super(Student)
 	end
 	
 	def new
-		@student = Student.new
+		super(Student)
 	end
 	
 	def create
-		@student = Student.new(params[:student])
-		if (@student.save)
-			redirect_to @student
-		else
-			render 'new'
-		end
+		super(Student)
 	end
 	
 	def edit
-		@student = Student.find(params[:id])
+		super(Student)
 	end
 	
 	def update
-		@student = Student.find(params[:id])
-		if (@student.update_attributes(params[:student]))
-			redirect_to action: 'show', id: @student.id
-		end
+		super(Student)
 	end
 	
 	def destroy
-		@student = Student.find(params[:id])
-		@student.destroy
-		
-		redirect_to action: 'index'
+		super(Student)
 	end
 end

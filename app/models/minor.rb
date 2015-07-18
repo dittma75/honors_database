@@ -6,4 +6,8 @@ class Minor < ActiveRecord::Base
 	
 	#Validation
 	validates :minor, presence: true
+	
+	def name
+		return "#{self.minor}"
+	end
 end

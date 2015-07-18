@@ -8,4 +8,8 @@ class Semester < ActiveRecord::Base
 	#Validation
 	validates :year, presence: true, numericality: {only_integer: true}
 	validates :session, presence: true
+	
+	def name
+		return "#{self.session} #{self.year}"
+	end
 end

@@ -6,4 +6,8 @@ class Concentration < ActiveRecord::Base
 	
 	#Validation
 	validates :concentration, presence: true
+	
+	def name
+		return "#{self.concentration}"
+	end
 end

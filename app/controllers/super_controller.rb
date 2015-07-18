@@ -1,5 +1,6 @@
 class SuperController < ApplicationController
 	def index(klass)
+		@class = klass
 		@objects = klass.all
 	end
 	
@@ -31,21 +32,21 @@ class SuperController < ApplicationController
 		end
 	end
 	
-	def destroy
-		@student = Student.find(params[:id])
-		@student.destroy
+	def destroy(klass)
+		@object = klass.find(params[:id])
+		@object.destroy
 		
 		redirect_to action: 'index'
 	end
 	
 	private
 	def underscore
-    word = self.dup
-    word.gsub!(/::/, '/')
-    word.gsub!(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
-    word.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
-    word.tr!("-", "_")
-    word.downcase!
-    return word
+		word = self.dup
+		word.gsub!(/::/, '/')
+		word.gsub!(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
+		word.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
+		word.tr!("-", "_")
+		word.downcase!
+		return word
   end
 end

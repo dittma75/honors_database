@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(:version => 20150606220816) do
 
   create_table "courses", :force => true do |t|
     t.string   "CRN",        :limit => 5, :null => false
-    t.integer  "course_id",               :null => false
-    t.integer  "section_id",              :null => false
+    t.integer  "course_ID",               :null => false
+    t.integer  "section_ID",              :null => false
     t.boolean  "is_honors",               :null => false
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false

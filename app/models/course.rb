@@ -6,8 +6,12 @@ class Course < ActiveRecord::Base
 	belongs_to :semester
 	
 	#Validation
-	validates :crn, presence: true, uniqueness: true, length: {is: 5}
-	validates :course_id, presence: true, numericality: {only_integer: true}
-	validates :section_id, presence: true, numericality: {only_integer: true}
+	validates :CRN, presence: true, uniqueness: true, length: {is: 5}
+	validates :course_ID, presence: true, numericality: {only_integer: true}
+	validates :section_ID, presence: true, numericality: {only_integer: true}
 	validates :is_honors, presence: true
+	
+	def name
+		return "#{self.CRN}"
+	end
 end

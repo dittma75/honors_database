@@ -22,4 +22,8 @@ class Student < ActiveRecord::Base
 	validates :enroll_session, presence: true
 	validates :enroll_year, presence: true, numericality: {only_integer: true}
 	validates :graduation_year, numericality: {only_integer: true}
+	
+	def name
+		return "#{self.last_name}, #{self.first_name}"
+	end
 end

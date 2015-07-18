@@ -1,29 +1,29 @@
-class HonorsSupersController < SuperController
+class HonorsApplicationsController < SuperController
 	def index
-		super(HonorsSuper)
+		super(HonorsApplication)
 	end
 	
 	def show
-		super(HonorsSuper)
+		super(HonorsApplication)
 	end
 	
 	def new
-		super(HonorsSuper)
+		super(HonorsApplication)
 	end
 	
 	def create
-		super(HonorsSuper)
+		super(HonorsApplication)
 	end
 	
 	def edit
-		super(HonorsSuper)
+		super(HonorsApplication)
 	end
 	
 	def update
-		super(HonorsSuper)
+		super(HonorsApplication)
 	end
 	
 	def destroy
-		super(HonorsSuper)
+		super(HonorsApplication)
 	end
 end

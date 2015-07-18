@@ -6,4 +6,8 @@ class Major < ActiveRecord::Base
 	
 	#Validation
 	validates :major, presence: true
+	
+	def name
+		return "#{self.major}"
+	end
 end

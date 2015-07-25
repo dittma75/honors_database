@@ -29,6 +29,8 @@ class SuperController < ApplicationController
 		@object = klass.find(params[:id])
 		if (@object.update_attributes(params[klass.name.underscore.to_sym]))
 			redirect_to action: 'show', id: @object.id
+		else
+			render 'edit'
 		end
 	end
 	
@@ -38,15 +40,4 @@ class SuperController < ApplicationController
 		
 		redirect_to action: 'index'
 	end
-	
-	private
-	def underscore
-		word = self.dup
-		word.gsub!(/::/, '/')
-		word.gsub!(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
-		word.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
-		word.tr!("-", "_")
-		word.downcase!
-		return word
-  end
 end

@@ -1,8 +1,10 @@
 class Student < ActiveRecord::Base
-	attr_accessible :banner_ID, :last_name, :first_name, :is_rowan, :email,
-									:street, :city, :state, :enroll_session, :enroll_year,
-									:graduation_session, :graduation_year, :is_honors,
-									:reason_not_honors
+	#attr_accessible :banner_ID, :last_name, :first_name, :is_rowan, :email,
+	#								:street, :city, :state, :enroll_session, :enroll_year,
+	#								:graduation_session, :graduation_year, :is_honors,
+	#								:reason_not_honors
+	attr_protected :created_at, :updated_at, :id
+	
 	#Cardinality
 	has_many :honors_applications
 	has_many :participations

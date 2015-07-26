@@ -21,7 +21,7 @@
   <% mtm_associations.each do |assoc| %>
     <%= assoc.name %>
     <%= collection_select(
-      assoc.class_name.underscore.to_sym,
+      nil,#@object.class.name.underscore.to_sym,
       assoc.association_foreign_key.to_sym,
       assoc.class_name.constantize.all.sort_by{|obj| obj.name},
       :id,

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150606220816) do
+ActiveRecord::Schema.define(:version => 20150726044349) do
 
   create_table "concentrations", :force => true do |t|
     t.string   "concentration", :null => false
@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(:version => 20150606220816) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "majors_students", :id => false, :force => true do |t|
+    t.integer "major_id",   :null => false
+    t.integer "student_id", :null => false
+  end
+
+  add_index "majors_students", ["major_id", "student_id"], :name => "index_majors_students_on_major_id_and_student_id"
 
   create_table "minors", :force => true do |t|
     t.string   "minor",      :null => false

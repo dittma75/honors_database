@@ -1,5 +1,5 @@
 class Course < ActiveRecord::Base
-  attr_accessible :CRN, :course_ID, :section_ID, :is_honors
+  attr_protected :id, :created_at, :updated_at
 	
 	#Cardinality
 	has_and_belongs_to_many :students

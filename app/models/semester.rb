@@ -1,5 +1,5 @@
 class Semester < ActiveRecord::Base
-  attr_accessible :year, :session
+  attr_protected :id, :created_at, :updated_at
 	
 	#Cardinality
 	has_many :courses

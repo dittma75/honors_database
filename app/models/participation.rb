@@ -1,5 +1,5 @@
 class Participation < ActiveRecord::Base
-  attr_accessible :service, :activity
+  attr_protected :id, :created_at, :updated_at
 	
 	#Cardinality
 	belongs_to :student

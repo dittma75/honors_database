@@ -1,7 +1,6 @@
 class HonorsApplication < ActiveRecord::Base
-		attr_accessible :combined_SAT, :math_SAT, :critical_reading_SAT, 
-										:writing_SAT, :essay_one, :essay_two, :recommendation,
-										:high_school_GPA
+	attr_protected :id, :created_at, :updated_at
+	
 	#Cardinality	
 	belongs_to :student
 	

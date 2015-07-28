@@ -1,5 +1,5 @@
 class Concentration < ActiveRecord::Base
-  attr_accessible :concentration
+  attr_protected :id, :created_at, :updated_at
 	
 	#Cardinality
 	has_and_belongs_to_many :students

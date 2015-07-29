@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150726044349) do
+ActiveRecord::Schema.define(:version => 20150726044355) do
 
   create_table "concentrations", :force => true do |t|
     t.string   "concentration", :null => false
@@ -19,14 +19,30 @@ ActiveRecord::Schema.define(:version => 20150726044349) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "courses", :force => true do |t|
-    t.string   "CRN",        :limit => 5, :null => false
-    t.integer  "course_ID",               :null => false
-    t.integer  "section_ID",              :null => false
-    t.boolean  "is_honors",               :null => false
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+  create_table "concentrations_students", :id => false, :force => true do |t|
+    t.integer "concentration_id", :null => false
+    t.integer "student_id",       :null => false
   end
+
+  add_index "concentrations_students", ["concentration_id", "student_id"], :name => "index_concentrations_students_on_concentration_id_and_student_id"
+
+  create_table "courses", :force => true do |t|
+    t.string   "CRN",         :limit => 5, :null => false
+    t.string   "course_name",              :null => false
+    t.string   "subject",                  :null => false
+    t.integer  "course_ID",                :null => false
+    t.integer  "section_ID",               :null => false
+    t.boolean  "is_honors",                :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  create_table "courses_students", :id => false, :force => true do |t|
+    t.integer "course_id",  :null => false
+    t.integer "student_id", :null => false
+  end
+
+  add_index "courses_students", ["course_id", "student_id"], :name => "index_courses_students_on_course_id_and_student_id"
 
   create_table "honors_applications", :force => true do |t|
     t.integer  "combined_SAT",                                       :null => false
@@ -59,6 +75,13 @@ ActiveRecord::Schema.define(:version => 20150726044349) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "minors_students", :id => false, :force => true do |t|
+    t.integer "minor_id",   :null => false
+    t.integer "student_id", :null => false
+  end
+
+  add_index "minors_students", ["minor_id", "student_id"], :name => "index_minors_students_on_minor_id_and_student_id"
 
   create_table "participations", :force => true do |t|
     t.decimal  "service",    :precision => 10, :scale => 2, :null => false

@@ -14,14 +14,14 @@
       </div>
     <% end %>
   <% end %>
-  <% mtm_associations = @object.class.reflect_on_all_associations(:has_many) +
+  <% mtm_associations = #@object.class.reflect_on_all_associations(:has_many) +
     @object.class.reflect_on_all_associations(:has_and_belongs_to_many) %>
-  <%= mtm_associations %>
+  <%#= mtm_associations %>
   <h1>Add Associations</h1>
   <% mtm_associations.each do |assoc| %>
     <%= assoc.name %>
     <%= collection_select(
-      nil,#@object.class.name.underscore.to_sym,
+      nil,
       assoc.association_foreign_key.to_sym,
       assoc.class_name.constantize.all.sort_by{|obj| obj.name},
       :id,
@@ -33,3 +33,4 @@
     <%= f.submit :class => 'submit'%>
   </div>
 <% end %>
+<%= link_to 'Back', action: nil %>

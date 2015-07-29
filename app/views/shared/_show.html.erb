@@ -5,15 +5,12 @@
     <div><%= "#{attr_name}:  #{attribute.last}"%></div>
   <% end %>
 <% end %>
-<% mtm_associations = @object.class.reflect_on_all_associations(:has_many) +
+<% mtm_associations = #@object.class.reflect_on_all_associations(:has_many) +
     @object.class.reflect_on_all_associations(:has_and_belongs_to_many) %>
 <% mtm_associations.each do |assoc_type| %>
     <h1><%= assoc_type.name.to_s.split('_').map{|str| str.capitalize}.join(' ') %></h1>
-    <% if (assoc_type.name.to_s.include?('major') ||
-           assoc_type.name.to_s.include?('student')) %>
     <% @object.send(assoc_type.plural_name).sort_by{|a| a.name}.each do |assoc_value| %>
       <%= assoc_value.name %><br/>
-    <% end %>
     <% end %>
 <% end %>
 <%= link_to 'Edit', action: 'edit', id: @object.id %> |

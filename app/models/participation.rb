@@ -10,6 +10,18 @@ class Participation < ActiveRecord::Base
 	validates :activity, presence: true, numericality: true
 	
 	def name
-		return "#{self.student.name} for #{self.semester.name}"
+		if (self.student.nil?)
+			participation_name = "Unassociatied participation for "
+		else
+			participation_name = "#{self.student.name} for "
+		end
+		
+		if (self.semester.nil?)
+			participation_name += "unknown semester"
+		else
+			participation_name += "#{self.semester.name}"
+		end
+		
+		return participation_name
 	end
 end

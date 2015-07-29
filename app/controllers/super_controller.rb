@@ -46,7 +46,7 @@ class SuperController < ApplicationController
 	private
 	
 	def add_associations(klass)
-		mtm_associations = klass.reflect_on_all_associations(:has_many) +
+		mtm_associations = #klass.reflect_on_all_associations(:has_many) +
 			klass.reflect_on_all_associations(:has_and_belongs_to_many)
 		mtm_associations.each do |assoc|
 			key = params[assoc.association_foreign_key.to_sym]

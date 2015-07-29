@@ -15,6 +15,9 @@ class HonorsApplication < ActiveRecord::Base
 	validates :recommendation, presence: true
 	
 	def name
-		return "#{self.student.name} (Submitted: #{self.created_at})"
+		unless (self.student.nil?)
+			return "#{self.student.name} (Submitted: #{self.created_at})"
+		end
+		return "Submitted: #{self.created_at}"
 	end
 end

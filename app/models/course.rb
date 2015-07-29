@@ -9,9 +9,8 @@ class Course < ActiveRecord::Base
 	validates :CRN, presence: true, uniqueness: true, length: {is: 5}
 	validates :course_ID, presence: true, numericality: {only_integer: true}
 	validates :section_ID, presence: true, numericality: {only_integer: true}
-	validates :is_honors, presence: true
 	
 	def name
-		return "#{self.CRN}"
+		return "#{self.course_name}"
 	end
 end

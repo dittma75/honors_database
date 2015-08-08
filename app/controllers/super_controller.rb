@@ -46,8 +46,23 @@ class SuperController < ApplicationController
 	private
 	
 	def add_associations(klass)
-		mtm_associations = #klass.reflect_on_all_associations(:has_many) +
-			klass.reflect_on_all_associations(:has_and_belongs_to_many)
+		otm_associations = klass.reflect_on_all_associations(:has_many)
+		mtm_associations = klass.reflect_on_all_associations(:has_and_belongs_to_many)
+		otm_associations.each do |assoc|
+			param_id = "#{assoc.plural_name}_id"
+		  key = params[param_id.to_sym]
+			unless (key.blank?)
+				class_name = assoc.plural_name.singularize.gsub!("_", " ")
+				new_association = class_name.constantize.find(key)
+				unless (new_association.blank?)
+					add_association(
+						@object.send(assoc.plural_name),
+						key,
+						new_association
+					)
+				end
+			end
+		end
 		mtm_associations.each do |assoc|
 			key = params[assoc.association_foreign_key.to_sym]
 			unless (key.blank?)
@@ -62,26 +77,6 @@ class SuperController < ApplicationController
 			end
 		end
 	end
-
-################################################################################	
-# PROBABLY USELESS - HERE UNTIL TESTING IS DONE	
-#	def add_reverse_associations(klass)
-#		mtm = klass.reflect_on_all_associations(:has_many_and_belongs_to_many)
-#		mtm.each do |assoc|
-#			owner_key = params[assoc.association_foreign_key.to_sym]
-#			unless (owner_key.blank?)
-#				owner_object = assoc.class_name.constantize.find(owner_key)
-#				unless (owner_object.blank?)
-#					add_association(
-#						owner_object.send(klass.name.underscore.to_s.pluralize),
-#						@object.id,
-#						@object
-#					)
-#				end
-#			end
-#		end
-#	end
-################################################################################
 
 	def add_association(current_associations, new_assoc_key, new_assoc)
 		unless (new_assoc_key.blank?)

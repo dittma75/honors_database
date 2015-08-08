@@ -10,6 +10,10 @@ class CreateHonorsApplications < ActiveRecord::Migration
 			t.integer :recommendation, null: false
 			t.decimal :high_school_GPA, null: false, scale: 2, precision: 3
       t.timestamps
+			
+			#One-to-many ids
+			t.references :student, null: false
+			add_index  :users, :network_id
     end
   end
 end

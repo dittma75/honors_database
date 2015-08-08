@@ -16,8 +16,23 @@
   <% end %>
   <% mtm_associations = #@object.class.reflect_on_all_associations(:has_many) +
     @object.class.reflect_on_all_associations(:has_and_belongs_to_many) %>
-  <%#= mtm_associations %>
-  <h1>Add Associations</h1>
+  <% otm_associations = @object.class.reflect_on_all_associations(:has_many) %>
+  <%= otm_associations %>
+  <%= mtm_associations %>
+  <h1>Add One-to-Many Associations</h1>
+  <% otm_associations.each do |assoc| %>
+    <%= assoc.name %>
+    <% param_id = "#{assoc.plural_name}_id" %>
+    <%= collection_select(
+      nil,
+      param_id.to_sym,
+      assoc.class_name.constantize.all.sort_by{|obj| obj.name},
+      :id,
+      :name,
+      {:include_blank => true}
+    ) %><br/>
+  <% end %>
+  <h1>Add Many-to-Many Associations</h1>
   <% mtm_associations.each do |assoc| %>
     <%= assoc.name %>
     <%= collection_select(

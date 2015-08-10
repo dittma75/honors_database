@@ -14,8 +14,8 @@ class SuperController < ApplicationController
 	
 	def create(klass)
 		@object = klass.new(params[klass.name.underscore.to_sym])
+		add_associations(klass)
 		if (@object.save)
-			add_associations(klass)
 			redirect_to @object
 		else
 			render 'new'
@@ -46,21 +46,13 @@ class SuperController < ApplicationController
 	private
 	
 	def add_associations(klass)
-		otm_associations = klass.reflect_on_all_associations(:has_many)
+		otm_associations = klass.reflect_on_all_associations(:belongs_to)
 		mtm_associations = klass.reflect_on_all_associations(:has_and_belongs_to_many)
 		otm_associations.each do |assoc|
-			param_id = "#{assoc.plural_name}_id"
+			param_id = "#{assoc.plural_name.singularize}_id"
 		  key = params[param_id.to_sym]
 			unless (key.blank?)
-				class_name = assoc.plural_name.singularize.gsub!("_", " ")
-				new_association = class_name.constantize.find(key)
-				unless (new_association.blank?)
-					add_association(
-						@object.send(assoc.plural_name),
-						key,
-						new_association
-					)
-				end
+				@object[param_id.to_sym] = key.to_i
 			end
 		end
 		mtm_associations.each do |assoc|

@@ -13,7 +13,6 @@ class CreateHonorsApplications < ActiveRecord::Migration
 			
 			#One-to-many ids
 			t.references :student, null: false
-			add_index  :users, :network_id
     end
   end
 end

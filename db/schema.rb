@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20150726044355) do
     t.boolean  "is_honors",                :null => false
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
+    t.integer  "semester_id",              :null => false
   end
 
   create_table "courses_students", :id => false, :force => true do |t|
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20150726044355) do
     t.decimal  "high_school_GPA",      :precision => 3, :scale => 2, :null => false
     t.datetime "created_at",                                         :null => false
     t.datetime "updated_at",                                         :null => false
+    t.integer  "student_id",                                         :null => false
   end
 
   create_table "majors", :force => true do |t|
@@ -84,10 +86,12 @@ ActiveRecord::Schema.define(:version => 20150726044355) do
   add_index "minors_students", ["minor_id", "student_id"], :name => "index_minors_students_on_minor_id_and_student_id"
 
   create_table "participations", :force => true do |t|
-    t.decimal  "service",    :precision => 10, :scale => 2, :null => false
-    t.decimal  "activity",   :precision => 10, :scale => 2, :null => false
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.decimal  "service",     :precision => 10, :scale => 2, :null => false
+    t.decimal  "activity",    :precision => 10, :scale => 2, :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.integer  "student_id",                                 :null => false
+    t.integer  "semester_id",                                :null => false
   end
 
   create_table "semesters", :force => true do |t|

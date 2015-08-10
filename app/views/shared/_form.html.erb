@@ -1,7 +1,7 @@
 <%= form_for(@object) do |f| %>
   <% @object.attributes.each do |attribute| %>
     <% attr_name = attribute.first.to_s.split('_').map(&:capitalize).join(' ') %>
-    <% unless (attribute.first.eql?('id') or
+    <% unless (attribute.first.include?('id') or
                attribute.first.eql?('created_at') or
                attribute.first.eql?('updated_at')) %>
       <div class="field">
@@ -14,15 +14,16 @@
       </div>
     <% end %>
   <% end %>
-  <% mtm_associations = #@object.class.reflect_on_all_associations(:has_many) +
+  <% mtm_associations =
     @object.class.reflect_on_all_associations(:has_and_belongs_to_many) %>
-  <% otm_associations = @object.class.reflect_on_all_associations(:has_many) %>
+  <% otm_associations = @object.class.reflect_on_all_associations(:has_many) +
+      @object.class.reflect_on_all_associations(:belongs_to) %>
   <%= otm_associations %>
-  <%= mtm_associations %>
+  <%#= mtm_associations %>
   <h1>Add One-to-Many Associations</h1>
   <% otm_associations.each do |assoc| %>
     <%= assoc.name %>
-    <% param_id = "#{assoc.plural_name}_id" %>
+    <% param_id = "#{assoc.plural_name.singularize}_id" %>
     <%= collection_select(
       nil,
       param_id.to_sym,

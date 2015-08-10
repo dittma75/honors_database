@@ -8,6 +8,9 @@ class CreateCourses < ActiveRecord::Migration
 			t.integer :section_ID, null: false
 			t.boolean :is_honors, null: false
       t.timestamps
+			
+			#One-to-many ids
+			t.references :semester, null: false
     end
   end
 end

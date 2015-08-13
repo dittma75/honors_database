@@ -1,10 +1,6 @@
 <%= render 'shared/menu' %>
 
-<% class_name = @class.model_name.human #get the class name
-  .split(' ')                           #make an array of the words
-  .map{|str| str.capitalize}            #capitalize each word
-  .join(' ')                            #join the string back 
-%>
+<% class_name = @class.model_name.human.titleize %>
 <h1>Listing <%= class_name.pluralize %></h1>
 <table>
 <% @objects.sort_by{|obj| obj.name}.each do |object| %>

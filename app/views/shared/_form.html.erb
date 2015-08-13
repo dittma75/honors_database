@@ -1,6 +1,6 @@
 <%= form_for(@object) do |f| %>
   <% @object.attributes.each do |attribute| %>
-    <% attr_name = attribute.first.to_s.split('_').map(&:capitalize).join(' ') %>
+    <% attr_name = attribute.first.to_s.titleize %>
     <% unless (attribute.first.include?('id') or
                attribute.first.eql?('created_at') or
                attribute.first.eql?('updated_at')) %>
@@ -16,37 +16,41 @@
   <% end %>
   <% mtm_associations =
     @object.class.reflect_on_all_associations(:has_and_belongs_to_many) %>
-  <% otm_associations = @object.class.reflect_on_all_associations(:has_many) +
-      @object.class.reflect_on_all_associations(:belongs_to) %>
-  <%= otm_associations %>
+  <% otm_associations = @object.class.reflect_on_all_associations(:belongs_to) %>
+  <%#= otm_associations %>
   <%#= mtm_associations %>
-  <h1>Add One-to-Many Associations</h1>
-  <% otm_associations.each do |assoc| %>
-    <%= assoc.name %>
-    <% param_id = "#{assoc.plural_name.singularize}_id" %>
-    <%= collection_select(
-      nil,
-      param_id.to_sym,
-      assoc.class_name.constantize.all.sort_by{|obj| obj.name},
-      :id,
-      :name,
-      {:include_blank => true}
-    ) %><br/>
+  <% unless (otm_associations.empty?) %>
+    <h1>Add One-to-Many Associations</h1>
+    <% otm_associations.each do |assoc| %>
+      <%= assoc.name %>
+      <% param_id = "#{assoc.plural_name.singularize}_id" %>
+      <%= collection_select(
+        nil,
+        param_id.to_sym,
+        assoc.class_name.constantize.all.sort_by{|obj| obj.name},
+        :id,
+        :name,
+        {:include_blank => true}
+      ) %><br/>
+    <% end %>
   <% end %>
-  <h1>Add Many-to-Many Associations</h1>
-  <% mtm_associations.each do |assoc| %>
-    <%= assoc.name %>
-    <%= collection_select(
-      nil,
-      assoc.association_foreign_key.to_sym,
-      assoc.class_name.constantize.all.sort_by{|obj| obj.name},
-      :id,
-      :name,
-      {:include_blank => true}
-    ) %><br/>
+  <% unless (mtm_associations.empty?) %>
+    <h1>Add Many-to-Many Associations</h1>
+    <% mtm_associations.each do |assoc| %>
+      <%= assoc.name %>
+      <%= collection_select(
+        nil,
+        assoc.association_foreign_key.to_sym,
+        assoc.class_name.constantize.all.sort_by{|obj| obj.name},
+        :id,
+        :name,
+        {include_blank: true}
+      ) %><br/>
+    <% end %>
   <% end %>
   <div class="actions">
-    <%= f.submit :class => 'submit'%>
+    <%= f.submit "Create #{@object.class.model_name.human.titleize}",
+      class: 'submit'%>
   </div>
 <% end %>
 <%= link_to 'Back', action: nil %>

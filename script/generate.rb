@@ -14,6 +14,8 @@ def write_model_file(args)
 	
 	puts "class #{args[0].classify} < ActiveRecord::Base"
 	puts "\tattr_protected :id, :created_at, :updated_at"
+	puts "\t"+'#VALIDATION'
+	puts "\t"+'#ASSOCIATONS'
 	puts "\tdef name"
 	puts "\t\t" +'return "' + "#{name_attrs.join(", ")}" + '"'
 	puts "\tend"
@@ -76,12 +78,18 @@ def write_controller_file(name)
 	puts "end"
 end
 
+def write_views(name)
+	#Create name.pluralize folder in app/views
+	#Create all files, each with <%= render "shared/<filename> %> in it.
+end
+
 unless (ARGV.count < 1)
 	model_args = ARGV.dup
 	migration_args = ARGV.dup
 	write_model_file(model_args)
 	write_migration_file(migration_args)
 	write_controller_file(ARGV[0])
+	write_views(ARGV[0])
 else
 	puts "Usage: generate_model table_name {name_attr}:type normal_attr:type {name_attr2}:type ..."
 end

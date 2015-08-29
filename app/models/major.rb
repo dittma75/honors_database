@@ -3,8 +3,8 @@ class Major < ActiveRecord::Base
 	
 	#Cardinality
 	has_and_belongs_to_many :students
-	
-	#Validation
+	#ASSOCIATIONS
+	#VALIDATIONS
 	validates :major, presence: true
 	
 	def name

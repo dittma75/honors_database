@@ -4,8 +4,8 @@ class Participation < ActiveRecord::Base
 	#Cardinality
 	belongs_to :student
 	belongs_to :semester
-	
-	#Validation
+	#ASSOCIATIONS
+	#VALIDATIONS
 	validates :service, presence: true, numericality: true
 	validates :activity, presence: true, numericality: true
 	

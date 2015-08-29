@@ -6,10 +6,10 @@ class Student < ActiveRecord::Base
 	has_many :participations
 	has_and_belongs_to_many :majors
 	has_and_belongs_to_many :minors
-  has_and_belongs_to_many :concentrations
+	has_and_belongs_to_many :concentrations
 	has_and_belongs_to_many :courses
-	
-	#Validations
+	#ASSOCIATIONS
+	#VALIDATIONS
 	validates :banner_ID, uniqueness: true, presence: true, length: {is: 9}
 	validates :last_name, presence: true
 	validates :first_name, presence: true

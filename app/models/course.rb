@@ -4,8 +4,8 @@ class Course < ActiveRecord::Base
 	#Cardinality
 	has_and_belongs_to_many :students
 	belongs_to :semester
-	
-	#Validation
+	#ASSOCIATIONS
+	#VALIDATIONS
 	validates :CRN, presence: true, uniqueness: true, length: {is: 5}
 	validates :course_ID, presence: true, numericality: {only_integer: true}
 	validates :section_ID, presence: true, numericality: {only_integer: true}

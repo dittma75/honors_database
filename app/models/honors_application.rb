@@ -3,8 +3,8 @@ class HonorsApplication < ActiveRecord::Base
 	
 	#Cardinality	
 	belongs_to :student
-	
-	#Valdiation
+	#ASSOCIATIONS
+	#VALIDATIONS
 	validates :combined_SAT, presence: true
 	validates :math_SAT, presence: true
 	validates :critical_reading_SAT, presence: true

@@ -4,8 +4,8 @@ class Semester < ActiveRecord::Base
 	#Cardinality
 	has_many :courses
 	has_many :participations
-	
-	#Validation
+	#ASSOCIATIONS
+	#VALIDATIONS
 	validates :year, presence: true, numericality: {only_integer: true}
 	validates :session, presence: true
 	

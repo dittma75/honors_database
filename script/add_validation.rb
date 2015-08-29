@@ -1,3 +1,4 @@
+require 'rails'
 def add_validation
-	#write validation at #VALIDATION marker
+	#write validation at #VALIDATIONS marker
 end

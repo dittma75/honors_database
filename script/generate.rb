@@ -14,8 +14,8 @@ def write_model_file(args)
 	
 	puts "class #{args[0].classify} < ActiveRecord::Base"
 	puts "\tattr_protected :id, :created_at, :updated_at"
-	puts "\t"+'#VALIDATION'
 	puts "\t"+'#ASSOCIATONS'
+	puts "\t"+'#VALIDATIONS'
 	puts "\tdef name"
 	puts "\t\t" +'return "' + "#{name_attrs.join(", ")}" + '"'
 	puts "\tend"

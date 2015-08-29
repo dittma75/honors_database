@@ -1,3 +1,5 @@
+require 'rails'
+
 def add_otm_migration(args)
 	#get timestamp
 	#one-to-many:

@@ -9,6 +9,8 @@ desc "add many-to-many migration"
 task :add_many_to_many do
 	ARGV.each { |a| task a.to_sym do ; end }
 	ARGV.shift #get rid of task name form args
+	# Make sure the args are in the order that Ruby expects.
+	ARGV.map! {|arg| arg.downcase.singularize}
 	add_mtm_migration(ARGV)
 end
 
@@ -17,8 +19,6 @@ def add_mtm_migration(args)
 	if (args.count == 2 and
 			File.file?("app/models/#{args[0]}.rb") and
 			File.file?("app/models/#{args[1]}.rb"))
-		# Make sure the args are in the order that Ruby expects.
-		args.map! {|arg| arg.downcase.singularize}
 		if (args[1] < args[0])
 			temp = args[0]
 			args[0] = args[1]

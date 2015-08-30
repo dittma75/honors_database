@@ -1,9 +1,10 @@
 <%= form_for(@object) do |f| %>
   <% @object.attributes.each do |attribute| %>
     <% attr_name = attribute.first.to_s.titleize %>
-    <% unless (attribute.first.include?('id') or
+    <% unless (attribute.first.eql?('id') or
                attribute.first.eql?('created_at') or
-               attribute.first.eql?('updated_at')) %>
+               attribute.first.eql?('updated_at') or
+               attribute.first.end_with?('_id')) %>
       <div class="field">
         <% if (attribute.first.start_with?('is_')) %>
           <%= f.check_box attribute.first.to_sym%><%= attr_name %><br/>
@@ -17,8 +18,6 @@
   <% mtm_associations =
     @object.class.reflect_on_all_associations(:has_and_belongs_to_many) %>
   <% otm_associations = @object.class.reflect_on_all_associations(:belongs_to) %>
-  <%#= otm_associations %>
-  <%#= mtm_associations %>
   <% unless (otm_associations.empty?) %>
     <h1>Add One-to-Many Associations</h1>
     <% otm_associations.each do |assoc| %>
@@ -48,6 +47,13 @@
       ) %><br/>
     <% end %>
   <% end %>
+      
+  <div class="errors">
+    <% @object.errors.each do |attribute, error| %>
+      <%= "#{attribute} #{error}"%><br/>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Create #{@object.class.model_name.human.titleize}",
       class: 'submit'%>

@@ -6,7 +6,7 @@ class Minor < ActiveRecord::Base
 	#ASSOCIATIONS
 	#VALIDATIONS
 	validates :minor, presence: true
-	
+
 	def name
 		return "#{self.minor}"
 	end

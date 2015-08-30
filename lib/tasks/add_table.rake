@@ -17,7 +17,7 @@ task :add_table do
 		write_controller_file(ARGV[0])
 		write_views(ARGV[0])
 	else
-		puts "Usage: add_table table_name {name_attr}:type normal_attr:type {name_attr2}:type ..."
+		puts "Usage: rake add_table table_name {name_attr}:type normal_attr:type {name_attr2}:type ..."
 	end
 end
 

@@ -1,6 +1,8 @@
-# File-writing found at:
+# File-writing best practices found at:
 # http://stackoverflow.com/questions/4397412/read-edit-and-write-a-text-file-line-wise-using-ruby
 
+# Making tasks accept commandline-style args found at:
+# http://thepolymathlab.com/4-ways-to-pass-arguments-to-a-rake-task
 require 'tempfile'
 require 'fileutils'
 require 'rake'
@@ -47,7 +49,7 @@ def add_mtm_migration(args)
 		#Update table 2's model
 		update_associations(args[1], args[0])
 	else
-		puts "Usage: add_many_to_many table1 table2"
+		puts "Usage: rake add_many_to_many table1 table2"
 		puts "Note: table1 and table2 must be the names of models in app/models"
 	end
 end

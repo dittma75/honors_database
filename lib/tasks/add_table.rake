@@ -7,7 +7,15 @@ task :add_table do
 	ARGV.each { |a| task a.to_sym do ; end }
 	ARGV.shift #get rid of task name form args
 	# Make sure the args are in the order that Ruby expects.
-	ARGV.map! {|arg| arg.downcase.singularize}
+	ARGV.map! do |arg|
+		new_arg = arg.downcase.singularize.gsub(/\W/, '')
+		if (arg.start_with?('{') and arg.end_with?('}') and not (arg.eql?(ARGV[0])))
+			arg = '{' + new_arg + '}'
+		else
+			arg = new_arg
+		end
+	end
+	
 	unless (ARGV.count < 1)
 		Dir.chdir(Rails.root)
 		model_args = ARGV.dup

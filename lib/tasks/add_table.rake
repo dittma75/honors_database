@@ -31,7 +31,7 @@ def write_model_file(args)
 		
 		if (/\{.+\}/.match(args[i]))
 			args[i] = fix_reserved_words(args[i].gsub(/\{|\}/, ""))
-			name_attrs.push("\#\{#{args[i]}\}")
+			name_attrs.push("\#\{self.#{args[i]}\}")
 		else
 			#Fix reserved words on non-name attributes
 			args[i] = fix_reserved_words(args[i])
@@ -75,7 +75,7 @@ def write_migration_file(args)
 	
 	columns = ""
 	for k in 1...args.count
-		columns += "\t\t\tt.#{types[k]} :#{args[k]}\n"
+		columns += "\t\t\tt.#{types[k]} :#{fix_reserved_words(args[k])}\n"
 	end
 	File.open(path, 'w') do |file|
 		file.write(

@@ -1,6 +1,8 @@
 require 'rails'
 require 'rake'
 require 'fileutils'
+require 'task_helper.rb'
+include TaskHelper
 
 desc "add model, table migration, controller, and views"
 task :add_table do
@@ -16,7 +18,7 @@ task :add_table do
 		end
 	end
 	
-	unless (ARGV.count < 1)
+	if (ARGV.count >= 2 and /.*\{\w+\}.*/.match(ARGV.join(' ')))
 		Dir.chdir(Rails.root)
 		model_args = ARGV.dup
 		migration_args = ARGV.dup
@@ -25,8 +27,10 @@ task :add_table do
 		write_controller_file(ARGV[0])
 		write_views(ARGV[0])
 		write_resource_entry(ARGV[0])
+		puts "Run 'rake db:migrate' to update the CMS application."
 	else
 		puts "Usage: rake add_table table_name {name_attr}:type normal_attr:type {name_attr2}:type ..."
+		puts "Note: At least one name attribute (one surrounded by {}s) must be specified."
 	end
 end
 
@@ -38,11 +42,11 @@ def write_model_file(args)
 		args[i] = args[i].gsub(/:.*/, "")
 		
 		if (/\{.+\}/.match(args[i]))
-			args[i] = fix_reserved_words(args[i].gsub(/\{|\}/, ""))
+			args[i] = TaskHelper.fix_reserved_words(args[i].gsub(/\{|\}/, ""))
 			name_attrs.push("\#\{self.#{args[i]}\}")
 		else
 			#Fix reserved words on non-name attributes
-			args[i] = fix_reserved_words(args[i])
+			args[i] = TaskHelper.fix_reserved_words(args[i])
 		end
 	end
 	
@@ -83,7 +87,7 @@ def write_migration_file(args)
 	
 	columns = ""
 	for k in 1...args.count
-		columns += "\t\t\tt.#{types[k]} :#{fix_reserved_words(args[k])}\n"
+		columns += "\t\t\tt.#{types[k]} :#{TaskHelper.fix_reserved_words(args[k])}\n"
 	end
 	File.open(path, 'w') do |file|
 		file.write(
@@ -177,16 +181,4 @@ def write_resource_entry(table_name)
 		temp_file.close
 		temp_file.unlink
 	end	
-end
-
-def fix_reserved_words(word)
-	reserved = ['end', 'else', 'nil', 'true', 'alias', 'elsif', 'not', 'undef',
-		'and', 'end', 'or', 'unless', 'begin', 'ensure', 'redo', 'until', 'break',
-		'false', 'rescue', 'when', 'case', 'for', 'retry', 'while', 'class', 'if',
-		'return', 'def', 'in', 'self', 'defined?', 'module', 'super', 'name']
-	if (reserved.include?(word))
-		return "_#{word}"
-	else
-		return word
-	end
 end

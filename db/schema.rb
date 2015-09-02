@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150726044355) do
+ActiveRecord::Schema.define(:version => 20150902174139) do
 
   create_table "concentrations", :force => true do |t|
     t.string   "concentration", :null => false
@@ -119,5 +119,33 @@ ActiveRecord::Schema.define(:version => 20150726044355) do
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
   end
+
+  create_table "students_widgets", :id => false, :force => true do |t|
+    t.integer "student_id", :null => false
+    t.integer "widget_id",  :null => false
+  end
+
+  add_index "students_widgets", ["student_id", "widget_id"], :name => "index_students_widgets_on_student_id_and_widget_id"
+
+  create_table "tonberries", :force => true do |t|
+    t.string   "clothing"
+    t.string   "item"
+    t.string   "job"
+    t.string   "command"
+    t.string   "eye_color"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "widgets", :force => true do |t|
+    t.string   "_name"
+    t.string   "size"
+    t.string   "color"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "course_id"
+  end
+
+  add_index "widgets", ["course_id"], :name => "index_widgets_on_course_id"
 
 end

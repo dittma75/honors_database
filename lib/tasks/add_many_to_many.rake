@@ -48,6 +48,7 @@ def add_mtm_migration(args)
 		update_associations(args[0], args[1])
 		#Update table 2's model
 		update_associations(args[1], args[0])
+		puts "Run 'rake db:migrate' to update the CMS application."
 	else
 		puts "Usage: rake add_many_to_many table1 table2"
 		puts "Note: table1 and table2 must be the names of models in app/models"

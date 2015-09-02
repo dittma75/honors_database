@@ -38,6 +38,7 @@ def add_otm_migration(args)
 
 		add_has_association(args[0], args[1])
 		add_belongs_association(args[1], args[0])
+		puts "Run 'rake db:migrate' to update the CMS application."
 	else
 		puts "Usage: rake add_one_to_many has_model belongs_model"
 		puts "Note: has_model and belongs_model must be the names of models in app/models"

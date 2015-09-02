@@ -9,6 +9,7 @@ class Student < ActiveRecord::Base
 	has_and_belongs_to_many :concentrations
 	has_and_belongs_to_many :courses
 	#ASSOCIATIONS
+	has_and_belongs_to_many :widgets
 	#VALIDATIONS
 	validates :banner_ID, uniqueness: true, presence: true, length: {is: 9}
 	validates :last_name, presence: true

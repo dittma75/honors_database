@@ -1,5 +1,6 @@
 HonorsDatabase::Application.routes.draw do
 	#RESOURCES
+	resources :tonberries
 	resources :widgets
 	resources :concentrations
 	resources :courses

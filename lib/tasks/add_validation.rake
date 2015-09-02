@@ -1,4 +1,6 @@
 require 'rake'
+require 'task_helper.rb'
+include TaskHelper
 
 desc "add validation(s) to the given table's given attribute"
 task :add_validation => :environment do
@@ -11,6 +13,7 @@ end
 
 def add_validation(args)
 	Dir.chdir(Rails.root)
+	args[1] = TaskHelper.fix_reserved_words(args[1])
 	if (args.count < 3)
 		puts "Usage: rake add_validation model attribute validation\n"
 		puts validation_list
@@ -88,6 +91,7 @@ def add_validation(args)
 			temp_file.close
 			temp_file.unlink
 		end
+		puts "Run 'rake db:migrate' to update the CMS application."
 	end
 end
 

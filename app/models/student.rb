@@ -1,6 +1,6 @@
 class Student < ActiveRecord::Base
 	attr_protected :id, :created_at, :updated_at
-	
+
 	#Cardinality
 	has_many :honors_applications
 	has_many :participations

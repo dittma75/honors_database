@@ -1,4 +1,8 @@
 about=
+add_many_to_many=
+add_one_to_many=
+add_table=
+add_validation=
 assets\:clean=
 assets\:clean\:all=
 assets\:environment=

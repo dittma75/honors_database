@@ -1,4 +1,5 @@
 HonorsDatabase::Application.routes.draw do
+	#RESOURCES
 	resources :concentrations
 	resources :courses
 	resources :honors_applications

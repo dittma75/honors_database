@@ -26,14 +26,14 @@ def add_mtm_migration(args)
 			args[0] = args[1]
 			args[1] = temp
 		end
-		class_name = "#{args[0].classify.pluralize}#{args[1].classify.pluralize}"
+		name = "add_#{args[0].pluralize}_#{args[1].pluralize}_association"
 		table_symbol = ":#{args[0].pluralize}_#{args[1].pluralize}"
 		timestamp = Time.now.strftime("%Y%m%d%H%M%S")
-		filename = "#{timestamp}_add_#{args[0]}_#{args[1]}_association.rb"
+		filename = "#{timestamp}_#{name}.rb"
 		path = "db/migrate/#{filename}"
 
 		File.open(path, "w") do |file|
-			file.write("class Create#{class_name} < ActiveRecord::Migration\n" +
+			file.write("class #{name.classify} < ActiveRecord::Migration\n" +
 				"\tdef change\n" +
 				"\t\tcreate_table #{table_symbol}, :id => false do |t|\n" +
 				"\t\t\tt.references :#{args[0]}, null: false\n" +

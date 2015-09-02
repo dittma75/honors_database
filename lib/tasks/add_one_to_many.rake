@@ -21,13 +21,13 @@ def add_otm_migration(args)
 	if (args.count == 2 and
 			File.file?("app/models/#{args[0]}.rb") and
 			File.file?("app/models/#{args[1]}.rb"))
-		class_name = "#{args[0].classify}Has#{args[1].classify.pluralize}"
+		name = "add_#{args[0]}_has_#{args[1].pluralize}_association"
 		timestamp = Time.now.strftime("%Y%m%d%H%M%S")
-		filename = "#{timestamp}_#{args[0]}_has_#{args[1]}_association.rb"
+		filename = "#{timestamp}_#{name}.rb"
 		path = "db/migrate/#{filename}"
 		
 		File.open(path, "w") do |file|
-			file.write("class Create#{class_name} < ActiveRecord::Migration\n" +
+			file.write("class #{name.classify} < ActiveRecord::Migration\n" +
 				"\tdef change\n" +
 				"\t\tadd_column :#{args[1].pluralize}, :#{args[0]}_id, :integer\n" +
 				"\t\tadd_index(:#{args[1].pluralize}, :#{args[0]}_id)\n" +

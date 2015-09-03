@@ -77,7 +77,25 @@ def delete_views(name)
 	if (File.exist?("#{name.pluralize}"))
 		FileUtils.rm_rf("#{name.pluralize}")
 	end
-	Dir.chdir(Rails.root)
+	
+	filename = "_menu.html.erb"
+	path = "shared/#{filename}"
+	temp_file = Tempfile.new(filename)
+	begin
+		File.open(path, "r") do |f|
+			f.each_line do |line|
+				unless (line.strip.split(', ').last.eql?("#{name.pluralize}_path %><br/>"))
+					temp_file.puts line
+				end
+			end
+		end
+		temp_file.close
+		FileUtils.mv(temp_file.path, path)
+	ensure
+		temp_file.close
+		temp_file.unlink
+	end	
+	file.write("\n<%= link_to '#{name.titleize.pluralize}', #{name.pluralize}_path %><br/>")
 end
 
 def delete_resource_entry(table_name)

@@ -35,15 +35,15 @@ def delete_model_file(table_name)
 						  line.strip.split(' ').include?(":#{table_name}"))
 						if (line.include?('has_and_belongs_to_many'))
 							t_pair = [filename.gsub(/.rb/, "")]
-							if (table_name < table_pair.first)
+							if (table_name < t_pair.first)
 								t_pair.unshift(table_name)
 							else
 								t_pair.push(table_name)
 							end
 							timestamp = Time.now.strftime("%Y%m%d%H%M%S")
 							class_name = "delete_#{t_pair[0].pluralize}_#{t_pair[1].pluralize}_table"
-							filename = "#{timestamp}_#{class_name}_.rb"
-							path = "db/migrate/#{filename}"
+							filename = "#{timestamp}_#{class_name}.rb"
+							path = Rails.root.join('db', 'migrate', "#{filename}")
 							
 							File.open(path, 'w') do |file|
 								file.write(

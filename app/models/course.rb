@@ -5,7 +5,6 @@ class Course < ActiveRecord::Base
 	has_and_belongs_to_many :students
 	belongs_to :semester
 	#ASSOCIATIONS
-	has_many :widgets
 	#VALIDATIONS
 	validates :CRN, presence: true, uniqueness: true, length: {is: 5}
 	validates :course_ID, presence: true, numericality: {only_integer: true}

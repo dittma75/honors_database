@@ -104,7 +104,6 @@ def write_migration_file(args)
 end
 
 def write_controller_file(name)
-	name = name
 	File.open("app/controllers/#{name.pluralize}_controller.rb", 'w') do |file|
 		file.write(
 			"class #{name.classify.pluralize}Controller < SuperController\n" +

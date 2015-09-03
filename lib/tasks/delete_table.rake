@@ -30,8 +30,36 @@ def delete_model_file(table_name)
 		begin
 			File.open(filename, "r") do |f|
 				f.each_line do |line|
-					# Remove
-					unless (line.strip.split(' ').include?(":#{table_name.pluralize}"))
+					# Remove associations
+					if (line.strip.split(' ').include?(":#{table_name.pluralize}") or
+						  line.strip.split(' ').include?(":#{table_name}"))
+						if (line.include?('has_and_belongs_to_many'))
+							t_pair = [filename.gsub(/.rb/, "")]
+							if (table_name < table_pair.first)
+								t_pair.unshift(table_name)
+							else
+								t_pair.push(table_name)
+							end
+							timestamp = Time.now.strftime("%Y%m%d%H%M%S")
+							class_name = "delete_#{t_pair[0].pluralize}_#{t_pair[1].pluralize}_table"
+							filename = "#{timestamp}_#{class_name}_.rb"
+							path = "db/migrate/#{filename}"
+							
+							File.open(path, 'w') do |file|
+								file.write(
+									"class #{class_name.classify} < ActiveRecord::Migration\n" +
+									"\tdef up\n" +
+									"\t\tdrop_table :#{t_pair[0].pluralize}_:#{t_pair[1].pluralize}" +
+									"\tend\n" +
+									"\tdef down\n" +
+									"\t\traise ActiveRecord::IrreversibleMigration\n" +
+									"\tend\n" +
+									"end\n"
+								)
+							end
+						end
+					# Not related to this table.  Keep the line.
+					else
 						temp_file.puts line
 					end
 				end

@@ -1,8 +1,6 @@
 require 'rails'
 require 'rake'
 require 'fileutils'
-require 'task_helper.rb'
-include TaskHelper
 
 desc "remove model, table migration, controller, and views"
 task :delete_table do

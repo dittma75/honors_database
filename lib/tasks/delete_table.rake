@@ -14,7 +14,7 @@ task :delete_table do
 		delete_model_file(ARGV[0])
 		write_revert_migration_file(ARGV[0])
 		delete_controller_file(ARGV[0])
-		remove_views(ARGV[0])
+		delete_views(ARGV[0])
 		delete_resource_entry(ARGV[0])
 		puts "Run 'rake db:migrate' to update the CMS application."
 	else
@@ -46,16 +46,16 @@ def delete_model_file(table_name)
 	Dir.chdir(Rails.root)
 end
 
-def write_revert_migration_file(args)
+def write_revert_migration_file(arg)
 	timestamp = Time.now.strftime("%Y%m%d%H%M%S")
-	filename = "#{timestamp}_create_#{args[0].pluralize}.rb"
+	filename = "#{timestamp}_delete_#{arg.pluralize}.rb"
 	path = "db/migrate/#{filename}"
 
 	File.open(path, 'w') do |file|
 		file.write(
-			"class Delete#{args[0].classify.pluralize} < ActiveRecord::Migration\n" +
+			"class Delete#{arg.classify.pluralize} < ActiveRecord::Migration\n" +
 			"\tdef up\n" +
-			"\t\tdrop_table :#{args[0].pluralize}" +
+			"\t\tdrop_table :#{arg.pluralize}" +
 			"\tend\n" +
 			"\tdef down\n" +
 			"\t\traise ActiveRecord::IrreversibleMigration\n" +

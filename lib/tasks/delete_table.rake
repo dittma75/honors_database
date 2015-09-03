@@ -95,7 +95,6 @@ def delete_views(name)
 		temp_file.close
 		temp_file.unlink
 	end	
-	file.write("\n<%= link_to '#{name.titleize.pluralize}', #{name.pluralize}_path %><br/>")
 end
 
 def delete_resource_entry(table_name)

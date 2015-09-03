@@ -40,14 +40,14 @@ def delete_model_file(table_name)
 							else
 								t_pair.push(table_name)
 							end
-							timestamp = Time.now.strftime("%Y%m%d%H%M%S")
-							mig_class_name = "delete_#{t_pair[0].pluralize}_#{t_pair[1].pluralize}_table"
-							mig_filename = "#{timestamp}_#{mig_class_name}.rb"
-							mig_path = Rails.root.join('db', 'migrate', "#{mig_filename}")
+							assoc_timestamp = (Time.now + 1).strftime("%Y%m%d%H%M%S")
+							assoc_class_name = "delete_#{t_pair[0].pluralize}_#{t_pair[1].pluralize}_table"
+							assoc_filename = "#{assoc_timestamp}_#{assoc_class_name}.rb"
+							assoc_path = Rails.root.join('db', 'migrate', "#{assoc_filename}")
 							
-							File.open(mig_path, 'w') do |file|
+							File.open(assoc_path, 'w') do |file|
 								file.write(
-									"class #{mig_class_name.classify} < ActiveRecord::Migration\n" +
+									"class #{assoc_class_name.classify} < ActiveRecord::Migration\n" +
 									"\tdef up\n" +
 									"\t\tdrop_table :#{t_pair[0].pluralize}_#{t_pair[1].pluralize}\n" +
 									"\tend\n" +
@@ -83,7 +83,7 @@ def write_revert_migration_file(arg)
 		file.write(
 			"class Delete#{arg.classify.pluralize} < ActiveRecord::Migration\n" +
 			"\tdef up\n" +
-			"\t\tdrop_table :#{arg.pluralize}" +
+			"\t\tdrop_table :#{arg.pluralize}\n" +
 			"\tend\n" +
 			"\tdef down\n" +
 			"\t\traise ActiveRecord::IrreversibleMigration\n" +

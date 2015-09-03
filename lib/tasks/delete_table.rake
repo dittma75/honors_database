@@ -41,15 +41,15 @@ def delete_model_file(table_name)
 								t_pair.push(table_name)
 							end
 							timestamp = Time.now.strftime("%Y%m%d%H%M%S")
-							class_name = "delete_#{t_pair[0].pluralize}_#{t_pair[1].pluralize}_table"
-							filename = "#{timestamp}_#{class_name}.rb"
-							path = Rails.root.join('db', 'migrate', "#{filename}")
+							mig_class_name = "delete_#{t_pair[0].pluralize}_#{t_pair[1].pluralize}_table"
+							mig_filename = "#{timestamp}_#{mig_class_name}.rb"
+							mig_path = Rails.root.join('db', 'migrate', "#{mig_filename}")
 							
-							File.open(path, 'w') do |file|
+							File.open(mig_path, 'w') do |file|
 								file.write(
-									"class #{class_name.classify} < ActiveRecord::Migration\n" +
+									"class #{mig_class_name.classify} < ActiveRecord::Migration\n" +
 									"\tdef up\n" +
-									"\t\tdrop_table :#{t_pair[0].pluralize}_:#{t_pair[1].pluralize}" +
+									"\t\tdrop_table :#{t_pair[0].pluralize}_#{t_pair[1].pluralize}\n" +
 									"\tend\n" +
 									"\tdef down\n" +
 									"\t\traise ActiveRecord::IrreversibleMigration\n" +
